@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.example.common.config.RestConfig,\
+  com.example.common.config.JmsConfig
