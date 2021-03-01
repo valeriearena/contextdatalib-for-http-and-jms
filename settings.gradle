@@ -3,5 +3,8 @@ rootProject.name = 'contextdataframework'
 include ':moduleA'
 project(':moduleA').projectDir = new File('moduleA')
 
+include ':moduleB'
+project(':moduleB').projectDir = new File('moduleB')
+
 include ':common'
 project(':common').projectDir = new File('common')

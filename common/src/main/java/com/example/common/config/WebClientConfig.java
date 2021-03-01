@@ -6,7 +6,7 @@ import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
-public class RestConfig {
+public class WebClientConfig {
 
     /**
      * We need to declare WebClient as a Spring bean because

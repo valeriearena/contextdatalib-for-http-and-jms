@@ -1,21 +1,21 @@
-package com.example.moduleA.rest;
+package com.example.moduleb.rest;
 
 import com.example.common.context.ContextData;
-import com.example.moduleA.service.ModuleAService;
+import com.example.moduleb.service.ModuleBService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/modulea")
-public class ModuleAResource {
+@RequestMapping("/moduleb")
+public class ModuleBResource {
 
     private final ContextData contextData;
-    private final ModuleAService moduleAService;
+    private final ModuleBService moduleBService;
 
-    public ModuleAResource(final ContextData contextData, final ModuleAService moduleAService) {
+    public ModuleBResource(final ContextData contextData, final ModuleBService moduleBService) {
         this.contextData = contextData;
-        this.moduleAService = moduleAService;
+        this.moduleBService = moduleBService;
     }
 
     @GetMapping
