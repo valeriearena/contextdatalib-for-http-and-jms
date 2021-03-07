@@ -1,2 +1,2 @@
-# Context Data Framework
-Spring Boot custom framework for propagating context data across REST calls and JMS calls – Spring JMS version with JmsTemplate and JmsListener.
+# Context Data Library
+Custom Spring Boot library for binding contextual data across REST calls and JMS messaging. – Spring JMS version with JmsTemplate and JmsListener.

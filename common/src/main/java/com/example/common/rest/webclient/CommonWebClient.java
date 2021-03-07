@@ -15,12 +15,10 @@ import java.util.StringJoiner;
 public class CommonWebClient {
 
     private final ContextData contextData;
-    private final ContextService contextService;
     private final WebClient webClient;
 
-    public CommonWebClient(final ContextData contextData, final ContextService contextService, final WebClient webClient) {
+    public CommonWebClient(final ContextData contextData, final WebClient webClient) {
         this.contextData = contextData;
-        this.contextService = contextService;
         this.webClient = webClient;
     }
 

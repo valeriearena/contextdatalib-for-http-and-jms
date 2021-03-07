@@ -29,7 +29,7 @@ import javax.jms.Message;
 @Slf4j
 @Aspect
 @Service
-public class JmsAspect{
+public class CommonJmsInterceptor {
 
     private final ContextData contextData;
     private final ContextService contextService;
@@ -37,7 +37,7 @@ public class JmsAspect{
     private final MessageConverter messageConverter;
     private final JwtService jwtService;
 
-    public JmsAspect(
+    public CommonJmsInterceptor(
             final ContextData contextData,
             final ContextService contextService,
             final JmsTemplate jmsTemplate,

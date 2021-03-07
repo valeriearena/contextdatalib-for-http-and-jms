@@ -1,3 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.example.common.config.WebSecurityConfig,\
   com.example.common.config.WebClientConfig,\
   com.example.common.config.JmsConfig

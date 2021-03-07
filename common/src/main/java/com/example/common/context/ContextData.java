@@ -3,7 +3,7 @@ package com.example.common.context;
 import org.springframework.stereotype.Component;
 
 /**
- * ContextData uses ThreadLocal to bind context details (in ExampleContextData) to the thread of each incoming message.
+ * ContextData uses ThreadLocal to bind context details (in ExampleContextData) to the thread.
  * Using ThreadLocal supports both HTTP request threads and JMS threads.
  *
  * NOTE: ThreadLocal is used by Spring's RequestContextHolder to provide request scope to beans annotated with @RequestScope.
