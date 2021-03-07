@@ -30,7 +30,7 @@ public class CommonServletFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain){
         try {
             String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-            ExampleContextData exampleContextData = jwtService.buildExampleContextData(authorizationHeader);
+            ExampleContextData exampleContextData = jwtService.authenticate(authorizationHeader);
             contextService.addContextData(exampleContextData);
             chain.doFilter(request, response);
         }

@@ -83,7 +83,7 @@ public class CommonJmsInterceptor {
             Message message = (Message)signatureArgs[0];
 
             String authorizationHeader = message.getStringProperty(ContextDataFieldEnum.AUTHORIZATION.getName());
-            ExampleContextData exampleContextData = jwtService.buildExampleContextData(authorizationHeader);
+            ExampleContextData exampleContextData = jwtService.authenticate(authorizationHeader);
             contextService.addContextData(exampleContextData);
 
             joinPoint.proceed();

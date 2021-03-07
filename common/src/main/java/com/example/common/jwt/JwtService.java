@@ -24,7 +24,7 @@ public class JwtService {
         this.jwtUserDetailsService = jwtUserDetailsService;
     }
 
-    public ExampleContextData buildExampleContextData(String authorizationHeader){
+    public ExampleContextData authenticate(String authorizationHeader){
         String jwtToken = getBearerToken(authorizationHeader);
         Claims claims = validateToken(jwtToken);
         authenticate(claims);
