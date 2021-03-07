@@ -1,7 +1,7 @@
 package com.example.moduleb.service;
 
 import com.example.common.bean.CommonMessage;
-import com.example.common.context.ContextData;
+import com.example.common.context.ContextService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -9,17 +9,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class ModuleBService {
 
-    private final ContextData contextData;
+    private final ContextService contextService;
 
-    public ModuleBService(final ContextData contextData) {
-        this.contextData = contextData;
+    public ModuleBService(final ContextService contextService) {
+        this.contextService = contextService;
     }
 
     public CommonMessage getWebResponse() {
-        log.info("Module B returning HTTP response. userName={}", contextData.getUserName());
+        log.info("Module B returning HTTP response. userName={}", contextService.getUserName());
         return CommonMessage.builder()
-                .userName(contextData.getUserName())
-                .message(String.format("Hello! This is an HTTP response for %s!", contextData.getUserName()))
+                .userName(contextService.getUserName())
+                .message(String.format("Hello! This is an HTTP response for %s!", contextService.getUserName()))
                 .build();
     }
 }

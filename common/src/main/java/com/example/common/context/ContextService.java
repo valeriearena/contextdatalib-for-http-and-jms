@@ -30,4 +30,12 @@ public class ContextService {
         return stringJoiner.toString();
     }
 
+    public String getJwtToken() {
+        return contextData.getJwtToken();
+    }
+
+    public String getUserName(){
+        return contextData.getUserName();
+    }
+
 }

@@ -14,14 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
 @Service
-public class CommonFilter extends OncePerRequestFilter {
+public class CommonServletFilter extends OncePerRequestFilter {
 
     public static final String URI_AUTH = "/auth";
 
     private final ContextService contextService;
     private final JwtService jwtService;
 
-    public CommonFilter(final ContextService contextService, final JwtService jwtService) {
+    public CommonServletFilter(final ContextService contextService, final JwtService jwtService) {
         this.contextService = contextService;
         this.jwtService = jwtService;
     }

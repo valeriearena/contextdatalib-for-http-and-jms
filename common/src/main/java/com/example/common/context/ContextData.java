@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * when the thread exits to avoid memory leaks.
  */
 @Component
-public class ContextData {
+class ContextData {
 
     private static final ThreadLocal<ExampleContextData> CONTEXT_DATA_THREAD_LOCAL = new ThreadLocal<>();
 

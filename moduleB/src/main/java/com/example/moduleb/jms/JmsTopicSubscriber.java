@@ -1,7 +1,7 @@
 package com.example.moduleb.jms;
 
 import com.example.common.bean.CommonMessage;
-import com.example.common.context.ContextData;
+import com.example.common.context.ContextService;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;
@@ -14,10 +14,10 @@ import javax.jms.TextMessage;
 @Service
 public class JmsTopicSubscriber {
 
-    private final ContextData contextData;
+    private final ContextService contextService;
 
-    public JmsTopicSubscriber(final ContextData contextData) {
-        this.contextData = contextData;
+    public JmsTopicSubscriber(final ContextService contextService) {
+        this.contextService = contextService;
     }
 
     @JmsListener(
@@ -28,7 +28,7 @@ public class JmsTopicSubscriber {
         try {
             String jsonMessage = message.getText();
             CommonMessage commonMessage = new Gson().fromJson(jsonMessage, CommonMessage.class);
-            log.info("Module B consuming JMS message. userName={}, message={}", contextData.getUserName(), commonMessage);
+            log.info("Module B consuming JMS message. userName={}, message={}", contextService.getUserName(), commonMessage);
         }
         catch (JMSException e){
             log.error(e.getMessage(), e);

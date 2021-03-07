@@ -1,6 +1,6 @@
 package com.example.common.config;
 
-import com.example.common.filter.CommonFilter;
+import com.example.common.filter.CommonServletFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,10 +14,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final String URI_AUTH = "/auth";
 
-    private final CommonFilter commonFilter;
+    private final CommonServletFilter commonFilter;
 
-    public WebSecurityConfig(final CommonFilter commonFilter){
-        this.commonFilter = commonFilter;
+    public WebSecurityConfig(final CommonServletFilter commonServletFilter){
+        this.commonFilter = commonServletFilter;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.example.common.rest.webclient;
 
-import com.example.common.context.ContextData;
 import com.example.common.context.ContextService;
 import com.example.common.enums.ContextDataFieldEnum;
 import lombok.extern.slf4j.Slf4j;
@@ -14,18 +13,19 @@ import java.util.StringJoiner;
 @Service
 public class CommonWebClient {
 
-    private final ContextData contextData;
+    private final ContextService ContextService;
     private final WebClient webClient;
 
-    public CommonWebClient(final ContextData contextData, final WebClient webClient) {
-        this.contextData = contextData;
+    public CommonWebClient(final ContextService ContextService, final WebClient webClient) {
+        this.ContextService = ContextService;
         this.webClient = webClient;
     }
 
     public String makeGetRequest(String uri) {
-        log.info("Inside CommonWebClient. userName={}", contextData.getUserName());
+        log.info("Inside CommonWebClient. userName={}", ContextService.getUserName());
 
-        StringJoiner stringJoiner = new StringJoiner(" ").add(ContextDataFieldEnum.BEARER.getName()).add(contextData.getJwtToken());
+        StringJoiner stringJoiner =
+                new StringJoiner(" ").add(ContextDataFieldEnum.BEARER.getName()).add(ContextService.getJwtToken());
 
         String jsonResponse =
                 webClient
