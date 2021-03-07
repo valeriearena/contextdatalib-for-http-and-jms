@@ -23,8 +23,13 @@ public class QueueProducer {
         this.jmsTemplate = jmsTemplate;
     }
 
-    public void produceMessage(CommonMessage commonMessage){
-        log.info("Inside QueueProducer. userName={}", contextData.getUserName());
+    public void sendMessage(){
+        log.info("Module A sending JMS message. userName={}", contextData.getUserName());
+        CommonMessage commonMessage =
+                CommonMessage.builder()
+                        .userName(contextData.getUserName())
+                        .message(String.format("Hello! This is a JMS message from %s!", contextData.getUserName()))
+                        .build();
         String jsonMessage = new Gson().toJson(commonMessage);
         jmsTemplate.convertAndSend(queueName, jsonMessage);
     }

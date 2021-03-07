@@ -6,5 +6,8 @@ project(':moduleA').projectDir = new File('moduleA')
 include ':moduleB'
 project(':moduleB').projectDir = new File('moduleB')
 
+include ':auth'
+project(':auth').projectDir = new File('auth')
+
 include ':common'
 project(':common').projectDir = new File('common')

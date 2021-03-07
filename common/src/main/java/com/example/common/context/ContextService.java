@@ -1,7 +1,10 @@
 package com.example.common.context;
 
+import com.example.common.enums.ContextDataFieldEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.StringJoiner;
 
 @Slf4j
 @Service
@@ -20,4 +23,11 @@ public class ContextService {
     public void removeContextData() {
         contextData.remove();
     }
+
+    public String getBearerToken(){
+        String jwt = contextData.getJwtToken();
+        StringJoiner stringJoiner = new StringJoiner(" ").add(ContextDataFieldEnum.BEARER.getName()).add(jwt);
+        return stringJoiner.toString();
+    }
+
 }

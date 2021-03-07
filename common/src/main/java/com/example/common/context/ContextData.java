@@ -28,9 +28,14 @@ public class ContextData {
         return CONTEXT_DATA_THREAD_LOCAL.get();
     }
 
+    public String getJwtToken() {
+        return CONTEXT_DATA_THREAD_LOCAL.get().getJwtToken();
+    }
+
     public String getUserName() {
         return CONTEXT_DATA_THREAD_LOCAL.get().getUserName();
     }
+
 
     @Override
     public String toString() {

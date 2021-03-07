@@ -2,8 +2,9 @@ package com.example.common.filter;
 
 import com.example.common.context.ContextService;
 import com.example.common.context.ExampleContextData;
-import com.example.common.enums.ContextDataFieldEnum;
+import com.example.common.jwt.JwtService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -15,17 +16,21 @@ import javax.servlet.http.HttpServletResponse;
 @Service
 public class CommonFilter extends OncePerRequestFilter {
 
-    private final ContextService contextService;
+    public static final String URI_AUTH = "/auth";
 
-    public CommonFilter(final ContextService contextService) {
+    private final ContextService contextService;
+    private final JwtService jwtService;
+
+    public CommonFilter(final ContextService contextService, final JwtService jwtService) {
         this.contextService = contextService;
+        this.jwtService = jwtService;
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain){
         try {
-            String userName = request.getHeader(ContextDataFieldEnum.USER_NAME_HEADER.getName());
-            ExampleContextData exampleContextData = ExampleContextData.builder().userName(userName).build();
+            String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+            ExampleContextData exampleContextData = jwtService.buildExampleContextData(authorizationHeader);
             contextService.buildContextData(exampleContextData);
             chain.doFilter(request, response);
         }
@@ -37,6 +42,12 @@ public class CommonFilter extends OncePerRequestFilter {
                 contextService.removeContextData();
             }
         }
+    }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getServletPath();
+        return path.equals(URI_AUTH);
     }
 
 }

@@ -1,8 +1,10 @@
 package com.example.common.bean;
 
-import org.springframework.stereotype.Component;
+import lombok.Builder;
+import lombok.Data;
 
-@Component
+@Data
+@Builder
 public class CommonMessage {
     private String userName;
     private String message;

@@ -5,7 +5,8 @@ import lombok.Getter;
 @Getter
 public enum ContextDataFieldEnum {
 
-    USER_NAME_HEADER("User-Name");
+    AUTHORIZATION("Authorization"),
+    BEARER("Bearer");
 
     private String name;
 

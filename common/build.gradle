@@ -12,12 +12,27 @@ repositories {
 
 
 dependencies {
+	// security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	implementation 'javax.xml.bind:jaxb-api:2.3.1'
+
+	// web
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+	// jms
 	implementation 'org.springframework.boot:spring-boot-starter-activemq'
 
+	// aop
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
+
+	// other
 	implementation 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+	implementation 'org.apache.commons:commons-lang3:3.11'
+
+
 }
 
 test {

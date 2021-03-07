@@ -1,11 +1,14 @@
 package com.example.moduleb.rest;
 
+import com.example.common.bean.CommonMessage;
 import com.example.common.context.ContextData;
 import com.example.moduleb.service.ModuleBService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
 @RequestMapping("/moduleb")
 public class ModuleBResource {
@@ -19,7 +22,8 @@ public class ModuleBResource {
     }
 
     @GetMapping
-    public String getExample(){
-        return "hello";
+    public CommonMessage getExample(){
+        log.info("Module B received request from {}.", contextData.getUserName());
+        return moduleBService.getWebResponse();
     }
 }

@@ -1,10 +1,10 @@
 package com.example.common.aop;
 
-import brave.Tracer;
 import com.example.common.context.ContextData;
 import com.example.common.context.ContextService;
 import com.example.common.context.ExampleContextData;
 import com.example.common.enums.ContextDataFieldEnum;
+import com.example.common.jwt.JwtService;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.jms.Message;
-import java.util.StringJoiner;
 
 /**
  * 1. Sending JMS message via MessageConverter::toMessage -
@@ -26,7 +25,6 @@ import java.util.StringJoiner;
  *      By default, Spring uses SimpleMessageConverter.
  *
  * 2. Receiving the JMS message via the method annotated with @JmsListener in JMS subscribers.
- *
  */
 @Slf4j
 @Aspect
@@ -37,16 +35,19 @@ public class JmsAspect{
     private final ContextService contextService;
     private final JmsTemplate jmsTemplate;
     private final MessageConverter messageConverter;
+    private final JwtService jwtService;
 
     public JmsAspect(
             final ContextData contextData,
             final ContextService contextService,
             final JmsTemplate jmsTemplate,
-            final MessageConverter messageConverter) {
+            final MessageConverter messageConverter,
+            final JwtService jwtService) {
         this.contextData = contextData;
         this.contextService = contextService;
         this.jmsTemplate = jmsTemplate;
         this.messageConverter = messageConverter;
+        this.jwtService = jwtService;
     }
 
     /**
@@ -64,15 +65,15 @@ public class JmsAspect{
 
         log.info("Entering JmsAspect After JMS Publisher...");
         Message message = (Message)retVal;
-        message.setStringProperty(ContextDataFieldEnum.USER_NAME_HEADER.getName(), contextData.getUserName());
+        String bearerToken = contextService.getBearerToken();
+        message.setStringProperty(ContextDataFieldEnum.AUTHORIZATION.getName(), bearerToken);
     }
 
     /**
      * Receiving JMS message for processing - Intercept the method annotated with @JmsListener.
-     * Intercept the method BEFORE processing the JMS message and read the custom JMS 'Authorization' and 'transaction_id' properties:
-     * 1. Authenticate the JWT token for the thread that receives and process the JMS message.
-     * 2. Add the context data and bind it to the thread.
-     * 3. Initialize the connection to the tenant database for the thread.
+     * Intercept the method BEFORE processing the JMS message and create ContextData:
+     * 1. Read User-Name property.
+     * 2. Add ContextData and bind it to the thread.
      *
      * NOTE: Around advice can perform custom behavior before and after the method invocation.
      * Method invocation is done explicity using ProceedingJoinPoint::proceed();
@@ -85,8 +86,8 @@ public class JmsAspect{
             Object[] signatureArgs = joinPoint.getArgs();
             Message message = (Message)signatureArgs[0];
 
-            String userName = message.getStringProperty(ContextDataFieldEnum.USER_NAME_HEADER.getName());
-            ExampleContextData exampleContextData = ExampleContextData.builder().userName(userName).build();
+            String jwtToken = message.getStringProperty(ContextDataFieldEnum.AUTHORIZATION.getName());
+            ExampleContextData exampleContextData = jwtService.buildExampleContextData(jwtToken);
             contextService.buildContextData(exampleContextData);
 
             joinPoint.proceed();
@@ -94,13 +95,14 @@ public class JmsAspect{
         catch (Throwable e){
             log.error(String.format("Failure when intercepting JMS message. Message will not be processed. error={}", e.getMessage()), e);
         }
-
     }
 
     /**
      * Receiving JMS message for processing - Intercept the method annotated with @JmsListener.
-     * Intercept the method AFTER processing the JMS message to remove the context data when the thread exits.
+     * Intercept the method AFTER processing the JMS message to remove the ContextData when the thread exits.
      * This will execute when the JMS message is processed successfully or if an exception is thrown.
+     *
+     * NOTE: ContextData must be removed to avoid memory leaks.
      */
     @After("@annotation(org.springframework.jms.annotation.JmsListener)")
     public void removeContextDataFromJmsConsumer(){

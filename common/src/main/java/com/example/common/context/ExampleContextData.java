@@ -8,5 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @Builder
 public class ExampleContextData {
+    private String jwtToken;
     private String userName;
 }
