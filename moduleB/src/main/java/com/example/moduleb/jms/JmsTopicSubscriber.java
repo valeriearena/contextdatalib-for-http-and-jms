@@ -12,15 +12,18 @@ import javax.jms.TextMessage;
 
 @Slf4j
 @Service
-public class QueueConsumer {
+public class JmsTopicSubscriber {
 
     private final ContextData contextData;
 
-    public QueueConsumer(final ContextData contextData) {
+    public JmsTopicSubscriber(final ContextData contextData) {
         this.contextData = contextData;
     }
 
-    @JmsListener(destination = "${moduleb.jms.queue.name}", containerFactory = "${moduleb.jms.queue.connection.factory}")
+    @JmsListener(
+            destination = "${moduleb.jms.topic.name}",
+            subscription = "${moduleb.jms.topic.subscription}",
+            containerFactory = "${moduleb.jms.topic.connection.factory}")
     public void receiveMessage(TextMessage message){
         try {
             String jsonMessage = message.getText();

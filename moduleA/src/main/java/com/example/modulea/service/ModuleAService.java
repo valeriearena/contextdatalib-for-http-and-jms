@@ -3,7 +3,7 @@ package com.example.modulea.service;
 import com.example.common.bean.CommonMessage;
 import com.example.common.context.ContextData;
 import com.example.common.rest.webclient.CommonWebClient;
-import com.example.modulea.jms.QueueProducer;
+import com.example.modulea.jms.JmsTopicPublisher;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,17 +17,17 @@ public class ModuleAService {
     private String modulebUri;
 
     private final ContextData contextData;
-    private final QueueProducer queueProducer;
+    private final JmsTopicPublisher jmsTopicPublisher;
     private final CommonWebClient commonWebClient;
 
-    public ModuleAService(final ContextData contextData, final QueueProducer queueProducer, final CommonWebClient commonWebClient) {
+    public ModuleAService(final ContextData contextData, final JmsTopicPublisher jmsTopicPublisher, final CommonWebClient commonWebClient) {
         this.contextData = contextData;
-        this.queueProducer = queueProducer;
+        this.jmsTopicPublisher = jmsTopicPublisher;
         this.commonWebClient = commonWebClient;
     }
 
-    public CommonMessage makeWebRequest(){
-        //queueProducer.sendMessage();
+    public CommonMessage sendMessage(){
+        jmsTopicPublisher.sendJmsMessage();
         return sendWebRequest();
     }
 

@@ -10,20 +10,20 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class QueueProducer {
+public class JmsTopicPublisher {
 
     private final ContextData contextData;
     private final JmsTemplate jmsTemplate;
 
-    @Value("${modulea.jms.queue.name}")
+    @Value("${modulea.jms.topic.name}")
     private String queueName;
 
-    public QueueProducer(final ContextData contextData, final JmsTemplate jmsTemplate) {
+    public JmsTopicPublisher(final ContextData contextData, final JmsTemplate jmsTemplate) {
         this.contextData = contextData;
         this.jmsTemplate = jmsTemplate;
     }
 
-    public void sendMessage(){
+    public void sendJmsMessage(){
         log.info("Module A sending JMS message. userName={}", contextData.getUserName());
         CommonMessage commonMessage =
                 CommonMessage.builder()

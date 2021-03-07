@@ -24,6 +24,6 @@ public class ModuleAResource {
     @GetMapping
     public CommonMessage getExample(){
         log.info("Module A received HTTP request. userName={}", contextData.getUserName());
-        return moduleAService.makeWebRequest();
+        return moduleAService.sendMessage();
     }
 }

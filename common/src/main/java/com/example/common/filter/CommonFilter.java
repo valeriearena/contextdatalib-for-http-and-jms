@@ -31,7 +31,7 @@ public class CommonFilter extends OncePerRequestFilter {
         try {
             String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
             ExampleContextData exampleContextData = jwtService.buildExampleContextData(authorizationHeader);
-            contextService.buildContextData(exampleContextData);
+            contextService.addContextData(exampleContextData);
             chain.doFilter(request, response);
         }
         catch (Exception e) {

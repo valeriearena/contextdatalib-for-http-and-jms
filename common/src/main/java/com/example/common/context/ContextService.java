@@ -16,7 +16,7 @@ public class ContextService {
         this.contextData = contextData;
     }
 
-    public void buildContextData(ExampleContextData exampleContextData){
+    public void addContextData(ExampleContextData exampleContextData){
         contextData.set(exampleContextData);
     }
 

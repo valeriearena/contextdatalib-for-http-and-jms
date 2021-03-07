@@ -1,6 +1,5 @@
 package com.example.common.aop;
 
-import com.example.common.context.ContextData;
 import com.example.common.context.ContextService;
 import com.example.common.context.ExampleContextData;
 import com.example.common.enums.ContextDataFieldEnum;
@@ -31,19 +30,16 @@ import javax.jms.Message;
 @Service
 public class CommonJmsInterceptor {
 
-    private final ContextData contextData;
     private final ContextService contextService;
     private final JmsTemplate jmsTemplate;
     private final MessageConverter messageConverter;
     private final JwtService jwtService;
 
     public CommonJmsInterceptor(
-            final ContextData contextData,
             final ContextService contextService,
             final JmsTemplate jmsTemplate,
             final MessageConverter messageConverter,
             final JwtService jwtService) {
-        this.contextData = contextData;
         this.contextService = contextService;
         this.jmsTemplate = jmsTemplate;
         this.messageConverter = messageConverter;
@@ -63,7 +59,7 @@ public class CommonJmsInterceptor {
             "throws javax.jms.JMSException, org.springframework.jms.support.converter.MessageConversionException)", returning="retVal")
     public void addContextDataToJmsProducer(Object retVal)throws Exception{
 
-        log.info("Entering JmsAspect After JMS Publisher...");
+        log.info("Entering CommonJmsInterceptor After JMS Publisher...");
         Message message = (Message)retVal;
         String bearerToken = contextService.getBearerToken();
         message.setStringProperty(ContextDataFieldEnum.AUTHORIZATION.getName(), bearerToken);
@@ -72,23 +68,23 @@ public class CommonJmsInterceptor {
     /**
      * Receiving JMS message for processing - Intercept the method annotated with @JmsListener.
      * Intercept the method BEFORE processing the JMS message and create ContextData:
-     * 1. Read User-Name property.
+     * 1. Read JWT and authorize.
      * 2. Add ContextData and bind it to the thread.
      *
      * NOTE: Around advice can perform custom behavior before and after the method invocation.
-     * Method invocation is done explicity using ProceedingJoinPoint::proceed();
+     * Method invocation is done explicitly using ProceedingJoinPoint::proceed();
      * We are using it here to ensure that if an exception is thrown, the JMS will not be processed.
      */
     @Around("@annotation(org.springframework.jms.annotation.JmsListener)")
     public void addContextDataToJmsConsumer(ProceedingJoinPoint joinPoint) throws Exception{
         try{
-            log.info("Entering JmsAspect Before JMS Listener...");
+            log.info("Entering CommonJmsInterceptor Before JMS Listener...");
             Object[] signatureArgs = joinPoint.getArgs();
             Message message = (Message)signatureArgs[0];
 
-            String jwtToken = message.getStringProperty(ContextDataFieldEnum.AUTHORIZATION.getName());
-            ExampleContextData exampleContextData = jwtService.buildExampleContextData(jwtToken);
-            contextService.buildContextData(exampleContextData);
+            String authorizationHeader = message.getStringProperty(ContextDataFieldEnum.AUTHORIZATION.getName());
+            ExampleContextData exampleContextData = jwtService.buildExampleContextData(authorizationHeader);
+            contextService.addContextData(exampleContextData);
 
             joinPoint.proceed();
         }
