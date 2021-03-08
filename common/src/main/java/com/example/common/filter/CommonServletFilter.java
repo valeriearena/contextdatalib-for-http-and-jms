@@ -29,9 +29,14 @@ public class CommonServletFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain){
         try {
+            log.info("Adding context data.");
+
             String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
             ExampleContextData exampleContextData = jwtService.authenticate(authorizationHeader);
             contextService.addContextData(exampleContextData);
+
+            log.info("Added context data. concontextData={}", contextService.getContextData());
+
             chain.doFilter(request, response);
         }
         catch (Exception e) {

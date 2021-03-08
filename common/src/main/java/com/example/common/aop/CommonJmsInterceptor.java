@@ -59,7 +59,8 @@ public class CommonJmsInterceptor {
             "throws javax.jms.JMSException, org.springframework.jms.support.converter.MessageConversionException)", returning="retVal")
     public void addContextDataToJmsProducer(Object retVal)throws Exception{
 
-        log.info("Entering CommonJmsInterceptor After JMS Publisher...");
+        log.info("Inside CommonJmsInterceptor. contextData={}", contextService.getContextData());
+
         Message message = (Message)retVal;
         String bearerToken = contextService.getBearerToken();
         message.setStringProperty(ContextDataFieldEnum.AUTHORIZATION.getName(), bearerToken);
@@ -76,15 +77,18 @@ public class CommonJmsInterceptor {
      * We are using it here to ensure that if an exception is thrown, the JMS will not be processed.
      */
     @Around("@annotation(org.springframework.jms.annotation.JmsListener)")
-    public void addContextDataToJmsConsumer(ProceedingJoinPoint joinPoint) throws Exception{
+    public void addContextDataToJmsConsumer(ProceedingJoinPoint joinPoint){
         try{
-            log.info("Entering CommonJmsInterceptor Before JMS Listener...");
+            log.info("Adding context data.");
+
             Object[] signatureArgs = joinPoint.getArgs();
             Message message = (Message)signatureArgs[0];
 
             String authorizationHeader = message.getStringProperty(ContextDataFieldEnum.AUTHORIZATION.getName());
             ExampleContextData exampleContextData = jwtService.authenticate(authorizationHeader);
             contextService.addContextData(exampleContextData);
+
+            log.info("Added context data. concontextData={}", contextService.getContextData());
 
             joinPoint.proceed();
         }
@@ -102,7 +106,8 @@ public class CommonJmsInterceptor {
      */
     @After("@annotation(org.springframework.jms.annotation.JmsListener)")
     public void removeContextDataFromJmsConsumer(){
-        log.info("Entering JmsAspect After JMS Listener...");
+
+        log.info("Removing context data. contextData={}", contextService.getContextData());
         contextService.removeContextData();
     }
 

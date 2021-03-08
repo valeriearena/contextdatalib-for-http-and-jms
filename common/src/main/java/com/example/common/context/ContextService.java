@@ -24,18 +24,13 @@ public class ContextService {
         contextData.remove();
     }
 
+    public String getContextData(){
+        return contextData.get().toString();
+    }
+
     public String getBearerToken(){
         String jwt = contextData.getJwtToken();
         StringJoiner stringJoiner = new StringJoiner(" ").add(ContextDataFieldEnum.BEARER.getName()).add(jwt);
         return stringJoiner.toString();
     }
-
-    public String getJwtToken() {
-        return contextData.getJwtToken();
-    }
-
-    public String getUserName(){
-        return contextData.getUserName();
-    }
-
 }
