@@ -1,4 +1,4 @@
-package com.example.modulea;
+package com.modulea;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

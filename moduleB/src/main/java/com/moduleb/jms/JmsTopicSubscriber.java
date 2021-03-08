@@ -1,4 +1,4 @@
-package com.example.moduleb.jms;
+package com.moduleb.jms;
 
 import com.example.common.bean.CommonMessage;
 import com.example.common.context.ContextData;

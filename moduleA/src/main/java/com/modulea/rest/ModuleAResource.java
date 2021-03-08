@@ -1,8 +1,8 @@
-package com.example.modulea.rest;
+package com.modulea.rest;
 
 import com.example.common.bean.CommonMessage;
 import com.example.common.context.ContextData;
-import com.example.modulea.service.ModuleAService;
+import com.modulea.service.ModuleAService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

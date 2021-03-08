@@ -1,9 +1,9 @@
-package com.example.modulea.service;
+package com.modulea.service;
 
 import com.example.common.bean.CommonMessage;
 import com.example.common.context.ContextData;
 import com.example.common.rest.webclient.CommonWebClient;
-import com.example.modulea.jms.JmsTopicPublisher;
+import com.modulea.jms.JmsTopicPublisher;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

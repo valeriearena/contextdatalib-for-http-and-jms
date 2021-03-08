@@ -1,4 +1,4 @@
-package com.example.moduleb.service;
+package com.moduleb.service;
 
 import com.example.common.bean.CommonMessage;
 import com.example.common.context.ContextData;
