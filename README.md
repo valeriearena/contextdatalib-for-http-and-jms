@@ -2,9 +2,9 @@
 Custom Spring Boot library for binding contextual data across REST calls and JMS messaging.
 
 # Prerequisites 
+**NOTE: Although IntelliJ should not be required, the instructions under Step Through the Code, were only performed in IntelliJ.**
 * Java 11 or above
 * Docker  
-**NOTE: Although IntelliJ should not be required, the instructions under Step Through the Code, were only performed in IntelliJ.**
 
 # Quick Start 
 * Cd to the root of the multi-module project: ```contextdatalib-for-http-and-jms```
