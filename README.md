@@ -3,8 +3,8 @@ Custom Spring Boot library for binding contextual data across REST calls and JMS
 
 # Prerequisites 
 * Java 11 or above
-* Docker 
-* Please NOTE: Although IntelliJ should not be required, the instructions under Step Through the Code, were only performed in IntelliJ.
+* Docker  
+**NOTE: Although IntelliJ should not be required, the instructions under Step Through the Code, were only performed in IntelliJ.**
 
 # Quick Start 
 * Cd to the root of the multi-module project: ```contextdatalib-for-http-and-jms```
@@ -24,6 +24,7 @@ Custom Spring Boot library for binding contextual data across REST calls and JMS
 ```curl --location --request GET 'http://localhost:8080/modulea/examples' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2YWwifQ.Dh909WZ2M3iAYC6BVEVdLRZxvIOof8Jd169pQjdXsKQ'```
 
 # Step Through the Code
+**NOTE: Although IntelliJ should not be required, the instructions under Step Through the Code, were only performed in IntelliJ.**
 * Import the multi-module project into your IDE.
 * Create a Run / Debug Configuration for docker-compose.sh, the auth app, the moduleA app, and the moduleB app.
 * Execute docker-compose.sh to startup ActiveMQ.
