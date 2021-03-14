@@ -45,14 +45,16 @@ Custom Spring Boot library for binding contextual data across REST calls and JMS
         * ModuleBResource line #26: Receive the request.
         * ModuleBService line #20. 
         * JmsTopicSubscriber line #29: Receive the JMS message.  
-* Get a JWT token by executing the following cURL and replace <username> with your username:
-```curl --location --request POST 'http://localhost:8070/auth' --header 'Content-Type: application/json' --data-raw '{"username":<username>}'```  
-* For example, the following cURL will retreive a JWT for username "mytest".
-```curl --location --request POST 'http://localhost:8070/auth' --header 'Content-Type: application/json' --data-raw '{"username":"mytest"}'```  
-* Execute the following cURL using the JWT token that is returned in the response in the Authorization header:  
-```curl --location --request GET 'http://localhost:8080/modulea/examples' --header 'Authorization: Bearer <JWT>'```  
-* For example, the followng cURL will make a request with JWT eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0In0.nslK4smd63aJAr6VuUA7QMHkwHWg5K1a8y0zK7sjVC8.
-```curl --location --request GET 'http://localhost:8080/modulea/examples' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJteXRlc3QifQ.TyFEH9k9ukPJeLNMi4WUFLWUM2E_8qU15rsFhX1tycc'```
+* Get a JWT token by executing the following cURL and replace <username> with your username.
+    * Execute:  
+    ```curl --location --request POST 'http://localhost:8070/auth' --header 'Content-Type: application/json' --data-raw '{"username":<username>}'```  
+    * For example, the following cURL will retreive a JWT for username "mytest".  
+    ```curl --location --request POST 'http://localhost:8070/auth' --header 'Content-Type: application/json' --data-raw '{"username":"mytest"}'```  
+* Submit a request to ModuleA
+    * Execute the following cURL using the JWT token that is returned in the response in the Authorization header:    
+    ```curl --location --request GET 'http://localhost:8080/modulea/examples' --header 'Authorization: Bearer <JWT>'```  
+    * For example, the followng cURL will make a request with JWT eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0In0.nslK4smd63aJAr6VuUA7QMHkwHWg5K1a8y0zK7sjVC8.  
+    ```curl --location --request GET 'http://localhost:8080/modulea/examples' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0In0.nslK4smd63aJAr6VuUA7QMHkwHWg5K1a8y0zK7sjVC8'```
 * Watch for "mytest" in the response and the logs!!!
         
 
