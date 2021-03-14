@@ -51,10 +51,10 @@ Custom Spring Boot library for binding contextual data across REST calls and JMS
     * For example, the following cURL will retreive a JWT for username "mytest".  
     ```curl --location --request POST 'http://localhost:8070/auth' --header 'Content-Type: application/json' --data-raw '{"username":"mytest"}'```  
 * Submit a request to ModuleA:
-    * Execute the following cURL using the JWT token that is returned in the response in the Authorization header:    
+    * Execute the following cURL using the JWT token in Authorization header:    
     ```curl --location --request GET 'http://localhost:8080/modulea/examples' --header 'Authorization: Bearer <JWT>'```  
     * For example, the followng cURL will make a request with JWT eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0In0.nslK4smd63aJAr6VuUA7QMHkwHWg5K1a8y0zK7sjVC8.  
     ```curl --location --request GET 'http://localhost:8080/modulea/examples' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0In0.nslK4smd63aJAr6VuUA7QMHkwHWg5K1a8y0zK7sjVC8'```
-* Watch for "mytest" in the response and the logs!!!
+* Watch for your username in the response and the logs!!!
         
 
