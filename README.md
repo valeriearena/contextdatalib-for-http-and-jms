@@ -17,11 +17,10 @@ Custom Spring Boot library for binding contextual data across REST calls and JMS
 * Start up the moduleB Spring Boot app by executing the following:  
 ```gradle moduleB:bootrun```
 * Get a JWT token by executing the following cURL:  
-```curl --location --request POST 'http://localhost:8070/auth' --header 'Content-Type: application/json' --data-raw '{"username":"test"}'```  
+```curl --location --request POST 'http://localhost:8070/auth' --header 'Content-Type: application/json' --data-raw '{"username":"mytest"}'```  
 * Execute the following cURL using the JWT token that is returned in the response in the Authorization header:  
-```curl --location --request GET 'http://localhost:8080/modulea/examples' --header 'Authorization: Bearer <JWT>'```  
-* For example:  
-```curl --location --request GET 'http://localhost:8080/modulea/examples' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2YWwifQ.Dh909WZ2M3iAYC6BVEVdLRZxvIOof8Jd169pQjdXsKQ'```
+```curl --location --request GET 'http://localhost:8080/modulea/examples' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJteXRlc3QifQ.TyFEH9k9ukPJeLNMi4WUFLWUM2E_8qU15rsFhX1tycc'```  
+* Watch for "mytest" in the response and the logs!!!
 
 # Step Through the Code
 **NOTE: Although IntelliJ should not be required, the instructions under Step Through the Code, were only performed in IntelliJ.**
