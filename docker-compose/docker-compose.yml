@@ -1,0 +1,13 @@
+version: '3'
+services:
+  # Artemis docker image: https://github.com/vromero/activemq-artemis-docker
+  # Artemis Admin Console: http://localhost:8161/console/login
+  # username = artemis, password = simetraehcapa
+  activemq:
+    image: vromero/activemq-artemis
+    container_name: activemq_container
+    environment:
+      - DISABLE_SECURITY=true
+    ports:
+      - '8161:8161'
+      - '61616:61616'
