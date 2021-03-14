@@ -29,7 +29,7 @@ Custom Spring Boot library for binding contextual data across REST calls and JMS
 * Create a Run / Debug Configuration for docker-compose.sh, the auth app, the moduleA app, and the moduleB app.
 * Execute docker-compose.sh to startup ActiveMQ.
 * Execute the debug configuration for the auth app, the moduleA app, and the moduleB app.
-* Add the following breakpoints and execute the following cURL
+* Add the following breakpoints:
     * common library:
         * CommonServletFilter line #32: Intercept the HTTP request to retrieve the JWT, authenticate it, parse the claims, and add context data.   
         * CommonWebClient line #27: Add the JWT to retrieve the JWT from context data and it to the Authorization header.     
